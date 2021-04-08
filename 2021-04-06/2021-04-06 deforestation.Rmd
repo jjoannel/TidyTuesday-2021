@@ -1,8 +1,3 @@
----
-title: 'TidyTuesday: Global Deforestation'
-output: html_document
----
-
 ```{r}
 # Or read in the data manually
 forest <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/forest.csv')
@@ -46,7 +41,8 @@ br %>%
 br1 <- br %>% 
   group_by(types,year) %>% 
   summarise(total_loss = round(sum(loss),0)) %>% 
-  arrange(types, year, -total_loss)
+  arrange(types, year, -total_loss) %>%
+  ungroup()
 
 #Plot: Animated chart
 p1 <- br1 %>% 
@@ -66,7 +62,7 @@ p1 <- br1 %>%
 
 a1 <- p1 + transition_reveal(year) + shadow_mark()
 anim <- animate(a1, 
-                 nframes = 55, end_pause = 10,
+                 nframes = 26, end_pause = 10,
                  fps=10, 
                  height = 4, width = 4, units = "in", res=150)
 anim
@@ -88,6 +84,3 @@ p2 <- br1 %>%
 
 ggsave("2021-04-06 deforest2.png")
 ```
-
-
-
