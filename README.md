@@ -33,7 +33,7 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 (https://github.com/jjoannel/.png)
 
 ---
-**Week 12 2021: Video Games** [(code)](https://github.com/jjoannel)
+**Week 12 2021: Video Games** [(shiny app)](https://jdsjourney.shinyapps.io/games/)
 
 (https://github.com/jjoannel/.png)
 
