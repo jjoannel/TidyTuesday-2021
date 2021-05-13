@@ -1,0 +1,93 @@
+---
+title: "CEO depatures"
+---
+
+```{r setup, include=FALSE}
+# Load libraries ------------------------------
+library(tidytuesdayR)
+library(tidyverse)
+library(tidytext)
+library(syuzhet)
+library(zoo)
+library(ggplot2)
+library(ggridges)
+library(lubridate)
+
+# Load data ------------------------------
+tuesdata <- tidytuesdayR::tt_load(2021, week = 18)
+departures <- tuesdata$departures
+rm(tuesdata)
+
+# Prep data ------------------------------
+#Use NRC lexicon, which consists of 8 emotions and 2 sentiments (positive and negative)
+#NRC lexicon is authored by Mohammad, Saif M. and Turney, Peter D.
+sentiments <- get_nrc_sentiment(departures$notes)
+
+#Combine NRC sentiments with Departure data
+departures <- bind_cols(departures, sentiments)
+
+departures <- departures %>%
+  mutate(d_code = case_when(
+    departure_code == 1 ~ "Death",
+    departure_code == 2 ~ "Illness",
+    departure_code == 3 ~ "Performance",
+    departure_code == 4 ~ "Violations",
+    departure_code == 5 ~ "Retirement",
+    departure_code == 6 ~ "New Opportunity",
+    departure_code == 7 ~ "Other", #(M&A, closure, interim ceo)
+    departure_code == 8 ~ "Missing",
+    departure_code == 9 ~ "Error",
+    is.na(departure_code) ~ "No Info",
+    TRUE ~ as.character(departure_code)
+      )
+  ) %>%
+  filter(!d_code %in% c("Missing", "Error", "No Info")) #This is about 17% of data removed
+
+departures <- departures %>% mutate(
+    d_type = case_when(
+    departure_code == 1 ~ "Involuntary",
+    departure_code == 2 ~ "Involuntary",
+    departure_code == 3 ~ "Involuntary",
+    departure_code == 4 ~ "Involuntary",
+    departure_code == 5 ~ "Voluntary",
+    departure_code == 6 ~ "Voluntary",
+    departure_code == 7 ~ "Other",
+    departure_code == 8 ~ "Missing",
+    departure_code == 9 ~ "Error",
+    is.na(departure_code) ~ "No Info",
+    TRUE ~ as.character(departure_code)
+      ))
+
+d_clean <- departures %>% 
+  filter(between(fyear_gone, 1990, 2021)) %>%
+  select(coname, exec_fullname, fyear_gone, leftofc, anger:d_type) %>%
+  mutate(leftofc_q = as.yearqtr(leftofc, format = "%Y-%m-%d")) 
+
+p <- d_clean %>% 
+  group_by(fyear_gone, d_code) %>%
+  summarize_at(vars(anger:positive), ~sum(.)) %>%
+  pivot_longer(cols = anger:positive, names_to = "sentiment", values_to = "count") %>%
+  filter(!(sentiment %in% c("negative", "positive")))
+
+# Plot ------------------------------
+#Plot ggridges w/median
+p %>% 
+  filter(between(fyear_gone, 2015, 2020)) %>%
+  ggplot(aes(x=count, 
+             y=fyear_gone, 
+             group=fyear_gone, 
+             fill =fyear_gone)) +
+  geom_density_ridges(quantile_lines= TRUE, 
+                      quantile_fun = median,
+                      alpha = .6) +
+  scale_fill_viridis_c(option = "C") +
+  labs(x = "Count", 
+       y = NULL,
+       title = "Senitment on S&P1500 CEO Departures (2015 - 2020)\n",
+       caption = "Source: Gentry et al. & DataIsPlural | By @jjoannel") +
+  theme_minimal() +
+  facet_wrap(~d_code, scales = "free")
+
+# Save  ------------------------------
+ggsave("Wk18_CEO.png", height = 5, width = 6)
+```

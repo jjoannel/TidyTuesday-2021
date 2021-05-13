@@ -1,0 +1,71 @@
+```{r}
+# Load Libraries ------------------------------
+library(tidyverse)
+library(lubridate)
+library(plotly)
+library(tsibble)
+library(fpp3)
+
+# Read data ------------------------------
+games <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-16/games.csv')
+
+games <- games %>% transmute(gamename,
+                             date = as.Date(yearmonth(ymd(paste(year, month, "1"))), "%m/%d/%Y"),
+                             avg, gain, peak, avg_peak_perc) 
+gamenames <- unique(games$gamename)
+
+# Explore data ------------------------------
+head(games)
+summary(games)
+
+games %>% filter(year == 2020) %>% 
+  group_by(gamename) %>% 
+  summarize(monthlyavg = round(sum(avg)/12)) %>% 
+  arrange(desc(monthlyavg))
+
+#Final Fantasy games 
+games %>% filter(grepl('Final', gamename, ignore.case = TRUE)) %>% 
+  filter(!gamename=='The Final Station' ) %>%
+  group_by(gamename, year) %>% 
+  summarize(monthlyavg = round(sum(avg)/12)) %>% 
+  arrange(desc(gamename,year))
+
+games %>% filter(grepl('Final', gamename, ignore.case = TRUE)) %>%
+  filter(!gamename=='The Final Station' ) %>%
+  transmute(gamename,
+            date = yearmonth(ymd(paste(year, month, "1"))),
+            avg, peak, gain) 
+
+# Plot ------------------------------
+#Plot: Basic bubble chart
+games2 %>%
+  ggplot(aes(x=date, y=avg, size=avg, fill=gamename)) +
+    geom_point(alpha=0.5, shape=21, color="black") + 
+    scale_size(range = c(.1, 24)) +
+    theme(legend.position="bottom") +
+    theme_minimal() +
+    labs(title = "Final Fantasy players on Steam over time",
+        x = NULL,
+        y = "Average number of players")
+
+#Plot: Plotly interactive bubble chart
+p <- plot_ly(games2, 
+             x = ~as.Date(date, "%m/%d/%Y"), 
+             y = ~avg, 
+               text = ~gamename,
+               type = 'scatter', mode = 'lines+markers', size = ~avg, 
+               color= ~gamename, 
+               colors = 'Paired',
+        sizes = c(10,28),
+        marker = list(opacity = 0.5, sizemode = 'diameter'))
+p <- p %>% layout(title = 'Average number of Final Fantasy players on Steam',
+         xaxis = list(title = 'Time',
+                      showgrid = FALSE),
+         yaxis = list(title = 'Average number of players', 
+                      showgrid = FALSE))
+         #,showlegend=FALSE)
+p
+
+# Save ------------------------------
+htmlwidgets::saveWidget(p, "games.html")
+```

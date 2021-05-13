@@ -1,0 +1,87 @@
+```{r}
+# Or read in the data manually
+forest <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/forest.csv')
+forest_area <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/forest_area.csv')
+brazil_loss <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/brazil_loss.csv')
+soybean_use <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/soybean_use.csv')
+vegetable_oil <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-04-06/vegetable_oil.csv')
+
+#Get the data
+tuesdata <- tidytuesdayR::tt_load(2021, week = 15)
+forest_change <- tuesdata$forest_change
+
+#Load packages ------------------------------
+library(tidyverse)
+library(gganimate)
+library(gifski)
+library(png)
+
+#Explore data ------------------------------
+br <- 
+  brazil_loss %>% 
+  pivot_longer(4:14, names_to = "types", values_to = "loss") %>% 
+  mutate(types = replace(types, types == "pasture", "Pasture"),
+                   types = replace(types, types == "small_scale_clearing", "Small scale clearing"),
+                   types = replace(types, types =="commercial_crops", "Commercial crops"),
+                   types = replace(types, types =="fire", "Fire"),
+                   types = replace(types, types =="selective_logging", "Selective Logging"),
+                   types = replace(types, types =="tree_plantations_including_palm","Tree plantations"),
+                   types = replace(types, types =="natural_disturbances", "Natural Disturbances"),
+                   types = replace(types, types =="roads", "Roads"),
+                   types = replace(types, types =="flooding_due_to_dams", "Flooding due to dams"),
+                   types = replace(types, types =="other_infrastructure", "Other Infrastructure"), 
+                   types = replace(types, types =="mining","Mining"))
+
+#Summarize ------------------------------
+br %>% 
+  group_by(types) %>% 
+  summarise(total_loss = sum(loss)) %>% 
+  arrange(-total_loss)
+
+br1 <- br %>% 
+  group_by(types,year) %>% 
+  summarise(total_loss = round(sum(loss),0)) %>% 
+  arrange(types, year, -total_loss) %>%
+  ungroup()
+
+#Plot: Animated chart
+p1 <- br1 %>% 
+  ggplot(aes(x= year, y = total_loss, color = types)) +
+  geom_point(aes(colour= types)) +
+  geom_line(aes(colour= types)) +
+  geom_segment(mapping = aes(x=year, xend= max(year)+1, y=total_loss, yend=total_loss), linetype=2) +
+  geom_label(aes(label=total_loss)) +
+  geom_text(aes(color= types, label= types), hjust=-1, show.legend = FALSE) +
+  scale_y_continuous(name="Hectares of Forest Lost", labels = scales::label_number_si(), limits=c(0,3000000)) +
+  labs(x = NULL, 
+       y = "Hectares of Forest Lost",
+       title = "Deforestation in Brazil 2001 - 2013\n",
+       caption = "Source: Our World In Data | By @jjoannel") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+a1 <- p1 + transition_reveal(year) + shadow_mark()
+anim <- animate(a1, 
+                 nframes = 26, end_pause = 10,
+                 fps=10, 
+                 height = 4, width = 4, units = "in", res=150)
+anim
+
+anim_save("2021-04-06 deforest.gif", animation = last_animation())
+
+
+#Plot: Normal ggplot ------------------------------
+p2 <- br1 %>% 
+  ggplot(aes(x= year, y = total_loss, color = types)) +
+  geom_point(aes(colour= types)) +
+  geom_line(aes(colour= types)) +
+  scale_y_continuous(name="Hectares of Forest Lost", labels = scales::label_number_si(), limits=c(0,3000000)) +
+  labs(x = NULL,
+       y = "Hectares of Forest Lost",
+       title = "Deforestation in Brazil 2001 - 2013\n",
+       caption = "Source: Our World In Data | By @jjoannel") +
+  theme_minimal()
+
+# Save  ------------------------------
+ggsave("2021-04-06 deforest2.png")
+```

@@ -1,0 +1,23 @@
+---
+title: "Netflix"
+date: "5/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Load libraries ------------------------------
+library(tidytuesdayR)
+library(tidyverse)
+
+# Load data ------------------------------
+tuesdata <- tidytuesdayR::tt_load(2021, week = 17)
+netflix <- tuesdata$netflix
+rm(tuesdata)
+
+# Prep data ------------------------------
+
+
+# Plot ------------------------------
+
+# Save ------------------------------
+```
