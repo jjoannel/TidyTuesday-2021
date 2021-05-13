@@ -15,17 +15,17 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 ---      
 **Week 18 2021: CEO Departures** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.Rmd)
 
-(https://github.com/jjoannel/.png)
+(https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.png)
 
 ---     
 **Week 17 2021: Netflix Shows** [(code)](https://github.com/jjoannel)
 
-(https://github.com/jjoannel/.png)
+()
 
 ---
 **Week 16 2021: US Post Office** [(code)](https://github.com/jjoannel)
 
-(https://github.com/jjoannel/.png)
+()
 
 ---
 **Week 15 2021: Deforestation** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_Deforestation.Rmd)
