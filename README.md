@@ -15,7 +15,8 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 ---      
 **Week 18 2021: CEO Departures** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.Rmd)
 
-<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.png" alt="ggridges plot for CEO departures in past 5 years" width="500" height="500">
+<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.png" alt="ggridges plot for CEO departures in past 5 years" width="350" height="350">
+<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO2.png" alt="ggridges plot for reasons for CEO departures" width="300" height="300">
 
 ---     
 **Week 17 2021: Netflix Shows** [(code)](https://github.com/jjoannel)
