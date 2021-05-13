@@ -30,7 +30,7 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 ---
 **Week 15 2021: Deforestation** [(code)](https://github.com/jjoannel)
 
-(https://github.com/jjoannel/.png)
+(https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_BrazilDeforestation.gif)
 
 ---
 **Week 12 2021: Video Games** [(shiny app)](https://jdsjourney.shinyapps.io/games/)
