@@ -13,7 +13,7 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 (https://github.com/jjoannel/.png)
 
 ---      
-**Week 18 2021: CEO Departures** [(code)](https://github.com/jjoannel)
+**Week 18 2021: CEO Departures** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.Rmd)
 
 (https://github.com/jjoannel/.png)
 
