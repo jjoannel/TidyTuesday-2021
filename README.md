@@ -28,7 +28,7 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 (https://github.com/jjoannel/.png)
 
 ---
-**Week 15 2021: Deforestation** [(code)](https://github.com/jjoannel)
+**Week 15 2021: Deforestation** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_Deforestation.Rmd)
 
 (https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_BrazilDeforestation.gif)
 
