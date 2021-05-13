@@ -5,17 +5,17 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 ---     
 **Week 20 2021: US Broadband** [(code)](https://github.com/jjoannel)
 
-(https://github.com/jjoannel/.png)
+( )
 
 ---      
 **Week 19 2021: Water Access** [(code)](https://github.com/jjoannel)
 
-(https://github.com/jjoannel/.png)
+( )
 
 ---      
 **Week 18 2021: CEO Departures** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.Rmd)
 
-(https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.png)
+<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk18_CEO/Wk18_CEO.png" alt="ggridges plot for CEO departures in past 5 years" width="500" height="500">
 
 ---     
 **Week 17 2021: Netflix Shows** [(code)](https://github.com/jjoannel)
@@ -30,11 +30,11 @@ These are my completed #Tidytuesday challenges hosted by the R4DS Online Learnin
 ---
 **Week 15 2021: Deforestation** [(code)](https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_Deforestation.Rmd)
 
-(https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_BrazilDeforestation.gif)
+<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk15_Deforestation/Wk15_BrazilDeforestation.gif" alt="Animated line plot of Brazil's deforestation in 2001-2013" width="400" height="400">
 
 ---
 **Week 12 2021: Video Games** [(shiny app)](https://jdsjourney.shinyapps.io/games/)
 
-(https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk12_VideoGames/SteamPlotly.png)
+<img src="https://github.com/jjoannel/TidyTuesday-2021/blob/main/Wk12_VideoGames/SteamPlotly.png" alt="Screenshot of interactive plotly embedded in Shiny app" width="700" height="400">
 
 ---
